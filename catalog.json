@@ -1,0 +1,30 @@
+{
+  "editions": {
+    "TardQuest": {
+      "source": "github",
+      "github": {
+        "repo": "packardbell95/tardquest",
+        "assets": {
+          "windows": "^TardQuest-[\\d.]+.*-x64\\.zip$",
+          "linux": "^TardQuest-[\\d.]+.*-AppImage\\.zip$"
+        }
+      },
+      "display": {
+        "title": "TARDQUEST EXTRA 'TARDED EDITION",
+        "subtitle": "A  D I C E Y  D U N G E O N  C R A W L E R"
+      }
+    },
+    "TardQuest Online": {
+      "source": "tqo",
+      "tqo": {
+        "base_url": "https://tardquest.online/update",
+        "channel": "PTE",
+        "file_name": "TardQuest-Online-PTE.zip"
+      },
+      "display": {
+        "title": "TARDQUEST ONLINE II",
+        "subtitle": "A   R E A L M   U N B O R N"
+      }
+    }
+  }
+}

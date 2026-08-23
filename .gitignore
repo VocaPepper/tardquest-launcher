@@ -1,0 +1,22 @@
+# Node
+node_modules
+dist
+
+# Rust
+src-tauri/target
+
+# Tauri generated
+src-tauri/gen
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Scratch / agent artifacts
+.temp/
+.agents/
+
+# Secrets - never commit the signing private key
+*.key
+.secrets/

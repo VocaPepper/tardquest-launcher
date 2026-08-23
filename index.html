@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TQ Launcher</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app">
+      <header class="header">
+        <div class="header-left">
+          <div id="title" class="title">TARDQUEST ONLINE II</div>
+          <div id="subtitle" class="subtitle">A   R E A L M   U N B O R N</div>
+          <div id="running" class="running"></div>
+        </div>
+        <div class="header-right">
+          <a id="privacy" class="link" href="#">Privacy Policy</a>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="left">
+          <div class="tabs">
+            <button id="tab-log" class="tab active">Activity Log</button>
+            <button id="tab-notes" class="tab">Release Notes</button>
+          </div>
+          <div id="panel-log" class="panel">
+            <textarea id="log" class="log" readonly spellcheck="false"></textarea>
+          </div>
+          <div id="panel-notes" class="panel hidden">
+            <textarea id="notes" class="log" readonly spellcheck="false"></textarea>
+          </div>
+        </section>
+
+        <aside class="right">
+          <div class="section">
+            <div class="section-title">VERSION INFO</div>
+            <div class="field-row">
+              <span class="field-label">Edition:</span>
+              <select id="edition" class="select"></select>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Build:</span>
+              <select id="build" class="select" disabled></select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="section">
+            <div class="section-title">INSTALL LOCATION</div>
+            <div class="path-row">
+              <input id="install_path" class="path" readonly />
+              <button id="browse" class="btn">Browse</button>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div class="actions">
+            <button id="check" class="btn">Check for Updates</button>
+            <button id="action" class="btn" disabled>Download</button>
+            <button id="play" class="btn play" disabled>&#9654; PLAY</button>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="footer">
+        <div class="progress-track"><div id="progress" class="progress-fill"></div></div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
