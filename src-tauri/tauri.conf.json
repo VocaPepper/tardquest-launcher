@@ -15,7 +15,9 @@
         "title": "TQ Launcher",
         "width": 1140,
         "height": 760,
-        "resizable": false,
+        "resizable": true,
+        "minWidth": 900,
+        "minHeight": 640,
         "fullscreen": false,
         "center": true
       }

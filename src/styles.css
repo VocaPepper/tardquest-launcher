@@ -74,6 +74,8 @@ body {
   flex-direction: column;
   padding: 20px;
   min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .tabs { display: flex; }
@@ -119,7 +121,13 @@ body {
   font-size: 13px;
   padding: 6px 8px;
   min-width: 190px;
+  /* Linux WebKitGTK renders native <select>; force the app dark theme so the
+     box and its dropdown aren't white-on-white. */
+  -webkit-appearance: none;
+  appearance: none;
+  color-scheme: dark;
 }
+.select option { background: var(--bg); color: var(--text); }
 .select:disabled { color: var(--dim); }
 
 .divider { height: 1px; background: var(--border); margin: 14px 0; }
