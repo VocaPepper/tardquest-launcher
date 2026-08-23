@@ -8,8 +8,7 @@ use anyhow::Result;
 use reqwest::Client;
 use std::path::PathBuf;
 use std::sync::Mutex;
-use tauri::{AppHandle, Emitter, Manager, State};
-use tauri_plugin_opener::OpenerExt;
+use tauri::{AppHandle, Emitter, Manager, State, WebviewUrl, WebviewWindowBuilder};
 
 fn state_path(app: &AppHandle) -> PathBuf {
     app.path()
@@ -188,9 +187,19 @@ pub async fn launch_game(app: AppHandle, state: State<'_, Mutex<AppState>>, edit
 
 #[tauri::command]
 pub async fn open_privacy(app: AppHandle) -> Result<(), String> {
-    app.opener()
-        .open_url("https://tardquest.online/privacy", None::<&str>)
-        .map_err(|e| e.to_string())
+    // Reuse an existing window, or open a dedicated one.
+    if let Some(window) = app.get_webview_window("privacy") {
+        let _ = window.show();
+        let _ = window.set_focus();
+        return Ok(());
+    }
+    WebviewWindowBuilder::new(&app, "privacy", WebviewUrl::App("src/privacy/index.html".into()))
+        .title("Privacy Policy")
+        .inner_size(980.0, 720.0)
+        .center()
+        .build()
+        .map_err(|e| e.to_string())?;
+    Ok(())
 }
 
 #[tauri::command]

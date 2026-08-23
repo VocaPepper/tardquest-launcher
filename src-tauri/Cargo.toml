@@ -1,6 +1,6 @@
 [package]
 name = "tq-launcher"
-version = "2.0.2608"
+version = "2.1.2608"
 description = "TQ Launcher"
 edition = "2021"
 
@@ -14,7 +14,6 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 tauri = { version = "2", features = [] }
 tauri-plugin-dialog = "2"
-tauri-plugin-opener = "2"
 tauri-plugin-process = "2"
 tauri-plugin-updater = "2"
 serde = { version = "1", features = ["derive"] }
