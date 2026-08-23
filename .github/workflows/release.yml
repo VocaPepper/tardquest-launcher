@@ -43,7 +43,9 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: "TQ Launcher ${{ github.ref_name }}"
+          # "beta" is a title-only label; the app/build version stays numeric
+          # so the Windows MSI/NSIS bundlers accept it.
+          releaseName: "TQ Launcher ${{ github.ref_name }}-beta"
           releaseBody: "Download and run the executable for your platform."
           # Published (not draft) and not a prerelease, so it resolves via
           # https://github.com/VocaPepper/tardquest-launcher/releases/latest/download/latest.json
