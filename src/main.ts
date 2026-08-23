@@ -239,7 +239,6 @@ async function init() {
   ($("tab-log") as HTMLElement).addEventListener("click", () => switchTab("log"));
   ($("tab-notes") as HTMLElement).addEventListener("click", () => switchTab("notes"));
 
-  log("Fetching manifest...");
   void checkLauncherUpdate();
   await populateEditions();
   await doScan();

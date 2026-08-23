@@ -35,12 +35,14 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Only required once self-update is activated (see README → Self-update).
+          # Required for signed updater artifacts (self-update).
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           tagName: ${{ github.ref_name }}
           releaseName: "TQ Launcher ${{ github.ref_name }}"
           releaseBody: "Download and run the executable for your platform."
-          releaseDraft: true
+          # Published (not draft) and not a prerelease, so it resolves via
+          # https://github.com/VocaPepper/tardquest-launcher/releases/latest/download/latest.json
+          releaseDraft: false
           prerelease: false
