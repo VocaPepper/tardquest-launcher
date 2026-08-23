@@ -36,11 +36,11 @@ body {
   padding: 20px 24px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 16px;
 }
 
-.header-right { padding-top: 4px; }
+.header-right { padding-top: 0; }
 
 .title { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
 .subtitle { color: var(--dim); font-size: 14px; letter-spacing: 4px; margin-top: 3px; }
