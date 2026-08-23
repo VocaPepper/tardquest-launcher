@@ -34,6 +34,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
+      - name: Read changelog for this release
+        id: changelog
+        shell: bash
+        run: |
+          # Emit the topmost "## <version>" section from CHANGELOG.md as the release body.
+          body="$(awk '/^## /{c++; if (c>1) exit} c==1{print}' CHANGELOG.md)"
+          echo "body<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$body" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
       - name: Build & publish Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
@@ -46,7 +56,7 @@ jobs:
           # "beta" is a title-only label; the app/build version stays numeric
           # so the Windows MSI/NSIS bundlers accept it.
           releaseName: "TQ Launcher ${{ github.ref_name }}-beta"
-          releaseBody: "Download and run the executable for your platform."
+          releaseBody: ${{ steps.changelog.outputs.body }}
           # Published (not draft) and not a prerelease, so it resolves via
           # https://github.com/VocaPepper/tardquest-launcher/releases/latest/download/latest.json
           releaseDraft: false
