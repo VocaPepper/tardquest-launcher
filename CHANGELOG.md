@@ -2,6 +2,13 @@
 
 All notable changes to the TQ Launcher are documented in this file.
 
+## 2.2.2608
+
+### Fixed
+- Edition and Build dropdowns no longer render white-on-white on Linux.
+- Launcher window is now resizable so the action buttons are not cut off on smaller displays.
+- Right-hand panel scrolls internally when the window is short.
+
 ## 2.1.2608
 
 ### Changed
