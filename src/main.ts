@@ -70,7 +70,16 @@ async function populateEditions() {
   if (editions.length) defaultSelectEdition(editions[0].key);
 }
 
-function defaultSelectEdition(edition: string) {
+function resetBuilds() {
+  builds = [];
+  selectedVersion = "";
+  const sel = $("build") as HTMLSelectElement;
+  sel.innerHTML = "";
+  sel.disabled = true;
+  updateState();
+}
+
+async function defaultSelectEdition(edition: string) {
   currentEdition = edition;
   ($("edition") as HTMLSelectElement).value = edition;
   const info = editionInfo(edition);
@@ -79,18 +88,29 @@ function defaultSelectEdition(edition: string) {
     ($("subtitle") as HTMLElement).textContent = info.subtitle;
   }
   isTqo = info?.source === "tqo";
-  refreshEdition();
+  // Drop the previous edition's builds immediately so the switch feels
+  // responsive and stale options don't linger while the new channel loads.
+  resetBuilds();
+  // Re-scan this edition so installed builds are detected right away rather
+  // than reusing the previous edition's scan result.
+  await doScan();
+  if (edition !== currentEdition) return; // user switched again mid-scan
+  await refreshEdition();
 }
 
 async function refreshEdition() {
-  builds = await invoke<Build[]>("fetch_channel", { edition: currentEdition });
+  const edition = currentEdition;
+  builds = await invoke<Build[]>("fetch_channel", { edition });
+  // If the user switched editions while the fetch was in flight, discard the
+  // stale result so it doesn't clobber the newly-selected edition's list.
+  if (edition !== currentEdition) return;
   await fillBuilds();
-  if (builds.length) {
-    selectedVersion = builds[0].version;
-    ($("build") as HTMLSelectElement).value = selectedVersion;
-  } else {
-    selectedVersion = "";
-  }
+  // Default to an installed build when one exists, otherwise the newest.
+  const inst = installedSet();
+  const preferred = builds.find((b) => inst.has(b.version)) ?? builds[0];
+  selectedVersion = preferred?.version ?? "";
+  const sel = $("build") as HTMLSelectElement;
+  if (selectedVersion) sel.value = selectedVersion;
   updateState();
 }
 
@@ -111,8 +131,13 @@ async function fillBuilds() {
 }
 
 async function doScan() {
-  scan = await invoke<ScanResult>("scan_install", { edition: currentEdition });
-  ($("install_path") as HTMLInputElement).value = scan.install_dir;
+  const edition = currentEdition;
+  const res = await invoke<ScanResult>("scan_install", { edition });
+  // Ignore a stale scan that resolves after the user has already switched
+  // to a different edition.
+  if (edition !== currentEdition) return;
+  scan = res;
+  ($("install_path") as HTMLInputElement).value = res.install_dir;
 }
 
 function updateAvailable(): boolean {

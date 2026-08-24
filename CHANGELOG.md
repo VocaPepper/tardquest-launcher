@@ -2,6 +2,13 @@
 
 All notable changes to the TQ Launcher are documented in this file.
 
+## 2.3.2608
+
+### Fixed
+- Switching editions now re-scans the install directory so the new edition's installed builds are detected immediately, defaults the Build dropdown to an installed version when one exists, and resets the build list while its channel loads instead of showing stale options.
+- Edition and Build dropdown boxes keep a consistent width and truncate long version numbers instead of stretching for the "(Installed)" tag.
+- The white Play button stays white on hover instead of being overridden by the generic button highlight.
+
 ## 2.2.2608
 
 ### Fixed

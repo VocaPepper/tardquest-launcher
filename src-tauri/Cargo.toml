@@ -1,6 +1,6 @@
 [package]
 name = "tq-launcher"
-version = "2.2.2608"
+version = "2.3.2608"
 description = "TQ Launcher"
 edition = "2021"
 

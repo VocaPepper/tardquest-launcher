@@ -111,7 +111,7 @@ body {
 
 .section-title { color: var(--dim); font-size: 13px; letter-spacing: 1px; margin-bottom: 14px; }
 .field-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.field-label { color: var(--dim); font-size: 13px; }
+.field-label { color: var(--dim); font-size: 13px; flex: 0 0 84px; margin-right: 12px; }
 
 .select {
   background: var(--bg);
@@ -120,7 +120,15 @@ body {
   font-family: var(--mono);
   font-size: 13px;
   padding: 6px 8px;
-  min-width: 190px;
+  /* Keep a consistent box width regardless of option text: fill the row up to
+     a cap, and truncate any overflow instead of growing to fit a long version
+     string (e.g. a build number with the "(Installed)" tag). */
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   /* Linux WebKitGTK renders native <select>; force the app dark theme so the
      box and its dropdown aren't white-on-white. */
   -webkit-appearance: none;
@@ -165,7 +173,11 @@ body {
   padding: 15px;
   border: none;
 }
+/* The play button also carries `.btn`, whose :hover would darken it; keep it
+   white (with black text) so hovering doesn't turn it into a dark highlight. */
+.play:hover { background: var(--accent); color: var(--bg); }
 .play:disabled { background: #555; color: #222; }
+.play:disabled:hover { background: #555; color: #222; }
 
 .footer { background: var(--panel); border: 1px solid var(--border); padding: 12px; }
 .progress-track { height: 11px; background: var(--border); }
